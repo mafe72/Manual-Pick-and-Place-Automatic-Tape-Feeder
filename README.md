@@ -96,6 +96,7 @@ Basic Usage
 		Wait for Raspberry Pi to reboot
 		
 * Fan control
+
 		FAN will turn ON if CPU temp exceeded 55C and turn OFF when CPU temp is under 40C
 
 ----------
