@@ -29,9 +29,11 @@ ATF Control Board
 --------
 
 Front Side:
+
 ![Front Side](pictures/atf_front_bw.png)
 
-Back Side
+Back Side:
+
 ![Back Side](pictures/atf_back_bw.png)
 
 ----------
