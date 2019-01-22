@@ -95,7 +95,7 @@ Basic Usage
 		LED will BLINK
 		Wait for Raspberry Pi to reboot
 		
-* Fan control
+* FAN CONTROL
 
 		FAN will turn ON if CPU temp exceeded 55C and turn OFF when CPU temp is under 40C
 
