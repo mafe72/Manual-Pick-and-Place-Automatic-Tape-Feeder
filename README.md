@@ -1,6 +1,6 @@
 Manual Pick and Place Automatic Tape Feeder
 ===============================
-This code controll the ON and OFF of the Automatic Tape Feeder (ATF)on a manual Pick and Place Machine.
+This code controll the ON and OFF of the Automatic Tape Feeder (ATF) on a manual Pick and Place Machine.
 
 
 License
