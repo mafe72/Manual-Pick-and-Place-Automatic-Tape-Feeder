@@ -61,10 +61,10 @@ if [ -e $script ];
 	then
 		echo "Script panelctrl.py already exists. Updating..."
                 rm -r $script
-		wget "https://raw.githubusercontent.com/mafe72/Manual-Pick-and-Place-Automatic-Tape-Feeder/scripts/panelctrl.py"
+		wget "https://raw.githubusercontent.com/mafe72/Manual-Pick-and-Place-Automatic-Tape-Feeder/master/scripts/panelctrl.py"
 		echo "Update complete."
 	else
-		wget "https://raw.githubusercontent.com/mafe72/Manual-Pick-and-Place-Automatic-Tape-Feeder/scripts/panelctrl.py"
+		wget "https://raw.githubusercontent.com/mafe72/Manual-Pick-and-Place-Automatic-Tape-Feeder/master/scripts/panelctrl.py"
 		echo "Download complete."
 fi
 #-----------------------------------------------------------
