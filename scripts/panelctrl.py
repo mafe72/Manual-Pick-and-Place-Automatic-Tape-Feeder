@@ -43,7 +43,7 @@ import socket
 from gpiozero import Button, LED
 GPIO.setmode(GPIO.BCM)
 
-resetButton = 16
+resetButton = Button(16)
 powerButton = Button(5)
 
 GPIO.setup(12, GPIO.OUT)
@@ -63,13 +63,13 @@ def getCPUtemp():
 while True:
 	#Power / LED Control
 	#When power button is unlatched turn off LED and initiate shutdown
-	if not powerButton.is_pressed:
+	if powerButton.is_pressed:
+		led.on()  #Take control of LED instead
+	else:
 		print ("Shutting down...")
 		os.system("shutdown -h now")
 		break
-	else:
-		led.on()  #Take control of LED instead
-		
+
 	#RESET Button pressed
 	if rebootBtn.is_pressed:
 		print ("Rebooting...")
