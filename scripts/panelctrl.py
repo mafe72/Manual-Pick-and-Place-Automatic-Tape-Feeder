@@ -71,6 +71,8 @@ while True:
 		led.on()  #Take control of LED instead
 		
 	#RESET Button pressed
+	if rebootBtn.is_pressed:
+		print ("Rebooting...")
 		led.blink(.2,.2)
 		os.system("reboot")
 
