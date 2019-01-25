@@ -43,7 +43,6 @@ import socket
 from gpiozero import Button, LED
 GPIO.setmode(GPIO.BCM)
 
-#resetButton = 2
 resetButton = Button(2)
 powerButton = Button(3)
 
@@ -51,9 +50,6 @@ GPIO.setup(4, GPIO.OUT)
 fan = GPIO.PWM(4, 50) #PWM frequency set to 50Hz
 
 led = LED(14)
-
-#rebootBtn = Button(resetButton, hold_time=hold)
-#GPIO.setup(resetButton,GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 #Get CPU Temperature
 def getCPUtemp():
@@ -72,7 +68,6 @@ while True:
 		
 	#RESET Button pressed
 	#When Reset button is presed system reboot
-#	if rebootBtn.is_pressed:
 	if resetButton.is_pressed:
 		led.blink(.2,.2)
 		os.system("reboot")
