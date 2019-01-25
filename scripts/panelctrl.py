@@ -1,5 +1,5 @@
 #####################################
-# Panel Control Board Script
+# RetroFlag NESPi Control Board Script
 #####################################
 # Hardware:
 # Board by Eladio Martinez
@@ -7,10 +7,10 @@
 #
 #####################################
 # Wiring:
-#  GPIO 5  Power Button (INPUT)
-#  GPIO 8  LED on signal (OUTPUT)
-#  GPIO 12 Fan on signal (OUTPUT)
-#  GPIO 16 Reset Button (INPUT)
+#  GPIO 2  Reset Button (INPUT)
+#  GPIO 3  Power Button (INPUT)
+#  GPIO 4  Fan on signal (OUTPUT)
+#  GPIO 14 LED on signal (OUTPUT)
 #
 #####################################
 #  Required python libraries
@@ -43,17 +43,17 @@ import socket
 from gpiozero import Button, LED
 GPIO.setmode(GPIO.BCM)
 
-resetButton = Button(16)
-powerButton = Button(5)
+#resetButton = 2
+resetButton = Button(2)
+powerButton = Button(3)
 
-GPIO.setup(12, GPIO.OUT)
-fan = GPIO.PWM(12, 50) #PWM frequency set to 50Hz
+GPIO.setup(4, GPIO.OUT)
+fan = GPIO.PWM(4, 50) #PWM frequency set to 50Hz
 
-led = LED(8)
-hold = 2
+led = LED(14)
 
-rebootBtn = Button(resetButton, hold_time=hold)
-GPIO.setup(resetButton,GPIO.IN, pull_up_down=GPIO.PUD_UP)
+#rebootBtn = Button(resetButton, hold_time=hold)
+#GPIO.setup(resetButton,GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 #Get CPU Temperature
 def getCPUtemp():
@@ -63,21 +63,23 @@ def getCPUtemp():
 while True:
 	#Power / LED Control
 	#When power button is unlatched turn off LED and initiate shutdown
-	if powerButton.is_pressed:
-		led.on()  #Take control of LED instead
-	else:
+	if not powerButton.is_pressed:
 		print ("Shutting down...")
 		os.system("shutdown -h now")
 		break
-
+	else:
+		led.on()  #Take control of LED instead of relying on TX pin
+		
 	#RESET Button pressed
-	if rebootBtn.is_pressed:
-		print ("Rebooting...")
+	#When Reset button is presed system reboot
+#	if rebootBtn.is_pressed:
+	if resetButton.is_pressed:
 		led.blink(.2,.2)
 		os.system("reboot")
 
 	#Fan control
-	#Adjust MIN and MAX TEMP as needed to control the FAN state
+	#Adjust MIN and MAX TEMP as needed to keep the FAN from kicking
+	#on and off with only a one second loop
 	cpuTemp = int(float(getCPUtemp()))
 	fanOnTemp = 55  #Turn on fan when exceeded
 	fanOffTemp = 40  #Turn off fan when under
