@@ -43,8 +43,9 @@ from gpiozero import Button, LED, DigitalOutputDevice
 
 resetButton = Button(2)
 powerButton = Button(3)
+fan = DigitalOutputDevice(4)
 ledPin = LED(14)
-fan = DigitalOutputDevice(17)
+
 
 #Get CPU Temperature
 def getCPUtemp():
