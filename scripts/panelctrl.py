@@ -36,20 +36,15 @@
 #  Fan control
 #	 FAN will turn ON if CPU temp exceeded 55C and turn OFF when CPU temp is under 40C
 
-import RPi.GPIO as GPIO
 import time
 import os
 import socket
-from gpiozero import Button, LED
-GPIO.setmode(GPIO.BCM)
+from gpiozero import Button, LED, DigitalOutputDevice
 
 resetButton = Button(2)
 powerButton = Button(3)
-
-GPIO.setup(4, GPIO.OUT)
-fan = GPIO.PWM(4, 50) #PWM frequency set to 50Hz
-
-led = LED(14)
+ledPin = LED(14)
+fan = DigitalOutputDevice(17)
 
 #Get CPU Temperature
 def getCPUtemp():
@@ -64,12 +59,13 @@ while True:
 		os.system("shutdown -h now")
 		break
 	else:
-		led.on()  #Take control of LED instead of relying on TX pin
+		ledPin.on()  #Take control of LED instead of relying on TX pin
 		
 	#RESET Button pressed
 	#When Reset button is presed system reboot
 	if resetButton.is_pressed:
-		led.blink(.2,.2)
+                print ("Rebooting...")
+		ledPin.blink(.2,.2)
 		os.system("reboot")
 
 	#Fan control
@@ -79,7 +75,7 @@ while True:
 	fanOnTemp = 55  #Turn on fan when exceeded
 	fanOffTemp = 40  #Turn off fan when under
 	if cpuTemp >= fanOnTemp:
-		fan.start(90) #90% duty cycle
+		fan.on()
 	if cpuTemp < fanOffTemp:
-		fan.stop()
+		fan.off()
 	time.sleep(1.00)
